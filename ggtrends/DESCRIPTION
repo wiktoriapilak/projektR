@@ -1,0 +1,15 @@
+Package: ggtrends
+Type: Package
+Title:  Analiza Danych Google Trends
+Version: 0.1.0
+Author: Svenja Mikłaszewska, Wiktoria Pilak
+Maintainer: <wiktoria.pilak@math.uni.wroc.pl>
+Description: Ten pakiet jest przeznaczony do pobierania, przetwarzania, 
+    analizowania i wizualizowania danych z Google Trends.
+    Pakiet zawiera funkcje do pobierania danych za pomocą API Google Trends, 
+    kroki przetwarzania wstępnego do czyszczenia i organizacji danych, 
+    narzędzia analizy statystycznej do identyfikacji istotnych trendów i wzorców
+    oraz opcje wizualizacji do graficznego przedstawienia wyników.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
