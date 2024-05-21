@@ -55,7 +55,7 @@ combined_df <- bind_rows(
 names(combined_df) = c("tydzien","wartosc","rodzaj")
 
 combined_df
-
+combined_df$rok <- as.numeric(combined_df$rok)
 
 #Tutaj rozbijamy zapis daty na 3 kolumny
 # Załóżmy, że pierwsza kolumna z datą ma nazwę 'data'. Zmieńmy jej nazwę, jeśli to konieczne.
