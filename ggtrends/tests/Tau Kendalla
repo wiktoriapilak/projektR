@@ -1,0 +1,78 @@
+
+# Tau Kendalla – statystyka będąca jedną z miar monotonicznej zależności dwóch
+# zmiennych losowych. Służy w praktyce do opisu korelacji między zmiennymi porządkowymi.
+
+# Tau Kendalla stanowi różnicę między prawdopodobieństwem, że porównywane zmienne będą układały 
+  # się w tym samym porządku dla dwóch obserwacji, a prawdopodobieństwem, że ułożą się w przeciwnym porządku.
+  # 
+  # Tau Kendalla przyjmuje wartości od –1 do 1 włącznie. +1 oznacza, że każda ze zmiennych rośnie przy 
+  # wzroście drugiej. –1 oznacza że każda maleje przy wzroście drugiej. Tym samym tau Kendalla, podobnie jak
+  # korelacja rangowa i rho Spearmana jest miarą monotonicznej zależności zmiennych losowych.
+  # 
+  # Ponieważ liczba par zgodnych, niezgodnych i wiązanych, a zatem również wartość tau nie zmienia się pod wpływem 
+  # rangowania, tau Kendalla można uważać za jedną ze statystycznych metod rangowych.
+  # 
+
+
+
+  # Przykładowe zmienne: wartosc i rok
+  # Usunięcie brakujących wartości (jeśli występują)
+  cleaned_data <- combined_df %>%
+    select(wartosc, rok) %>%
+    na.omit()
+  
+  # Obliczenie Tau Kendalla
+  tau_kendall <- cor(cleaned_data$wartosc, cleaned_data$rok, method = "kendall")
+  
+  # Wyświetlenie wyniku
+  print(paste("Współczynnik korelacji Tau Kendalla:", tau_kendall))
+  
+  
+  
+  
+  # Funkcja do obliczania współczynnika Tau Kendalla dla dowolnych dwóch zmiennych
+  oblicz_tau_kendalla <- function(data, zmienna1, zmienna2) {
+    # Usunięcie brakujących wartości
+    cleaned_data <- data %>%
+      select(all_of(c(zmienna1, zmienna2))) %>%
+      na.omit()
+    
+    # Obliczenie Tau Kendalla
+    tau_kendall <- cor(cleaned_data[[zmienna1]], cleaned_data[[zmienna2]], method = "kendall")
+    
+    return(tau_kendall)
+  }
+  
+  # Przykład użycia funkcji
+  tau_kendall_wartosc_rok <- oblicz_tau_kendalla(combined_df, "wartosc", "rok")
+  print(paste("Współczynnik korelacji Tau Kendalla między 'wartosc' a 'rok':", tau_kendall_wartosc_rok))
+  
+  
+  # Wykres punktowy z linią trendu
+  ggplot(cleaned_data, aes(x = rok, y = wartosc)) +
+    geom_point(alpha = 0.5) +  # Punkty na wykresie
+    geom_smooth(method = "lm", col = "blue") +  # Linia trendu
+    labs(title = "Zależność między 'rok' a 'wartosc'",
+         x = "Rok",
+         y = "Wartość") +
+    theme_minimal()
+
+
+  # Funkcja do tworzenia wykresów punktowych z linią trendu
+  tworz_wykres <- function(data, zmienna_x, zmienna_y) {
+    cleaned_data <- data %>%
+      select(all_of(c(zmienna_x, zmienna_y))) %>%
+      na.omit()
+    
+    ggplot(cleaned_data, aes_string(x = zmienna_x, y = zmienna_y)) +
+      geom_point(alpha = 0.5) +
+      geom_smooth(method = "lm", col = "blue") +
+      labs(title = paste("Zależność między", zmienna_x, "a", zmienna_y),
+           x = zmienna_x,
+           y = zmienna_y) +
+      theme_minimal()
+  }
+  
+  # Przykład użycia funkcji
+  tworz_wykres(combined_df, "rok", "wartosc")
+
