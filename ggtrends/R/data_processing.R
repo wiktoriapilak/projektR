@@ -1,23 +1,39 @@
-importFile<- function(path){
-  newTable = read.csv(path, skip=2)
-  newTable = na.omit(newTable)
-  return(newTable)
+library(dplyr)
+library(tools)
+
+read_all_files <- function(folder_path) {
+  files <- list.files(path = folder_path, pattern = "\\.csv$", full.names = TRUE)
+  data_list <- lapply(files, read.csv, header = FALSE)
+  return(list(data_list = data_list, files = files))
 }
 
-doDateTable <-function (rawFile){
-  names(rawFile)[1] <- "week"
-  names(rawFile)[2] <- "amount"
-  rawFile[,1]=as.Date(rawFile[,1])
-  dateTable=rawFile
-  return(dateTable)
+process_data <- function(data_list, files) {
+  processed_list <- mapply(function(df, file) {
+    type_value <- file_path_sans_ext(basename(file))
+    df <- df %>%
+      slice(-1, -2) %>%
+      mutate(
+        type = type_value,
+        week = as.Date(V1, format="%Y-%m-%d"),
+        year = as.numeric(format(week, "%Y")),
+        month = format(week, "%m"),
+        day = format(week, "%d"),
+        range_of_years = cut(
+          year,
+          breaks = seq(2003, 2024, by = 3),
+          labels = c("2004-2006", "2007-2009", "2010-2012", "2013-2015", "2016-2018", "2019-2021", "2022-2024"),
+          right = TRUE
+        )
+      ) %>%
+      select(-V1)
+    return(df)
+  }, data_list, files, SIMPLIFY = FALSE)
+
+  return(processed_list)
 }
 
-doSplitTable <- function (rawFile){
-  rawFile$year = as.numeric(substring(rawFile[,1],1,4))
-  rawFile$month = as.numeric(substring(rawFile[,1],6,7))
-  rawFile$day = as.numeric(substring(rawFile[,1],9,10))
-  rawFile = rawFile[, -1]
-  names(rawFile)[1] <- "amount"
-  splitTable <- rawFile[, c(2:ncol(rawFile), 1)]
-  return(timeTable)
+combine_data_frames <- function(processed_list) {
+  combined_df <- bind_rows(processed_list)
+  names(combined_df) <- c("value", "type", "week", "year", "month", "day", "range_of_years")
+  return(combined_df)
 }
