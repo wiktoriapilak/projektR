@@ -1,6 +1,6 @@
 library(ggplot2)
 
-# 1. Tworzenie wykresu sezonowego
+# Tworzenie wykresu sezonowego
 draw_season_plot <- function(data, type) {
   filtered_data <- data %>% filter(type == !!type)
 
@@ -14,13 +14,8 @@ draw_season_plot <- function(data, type) {
     theme(legend.position = "none")
 }
 
-# Przykład użycia funkcji
-value <- "baggy_jeans"
-draw_season_plot(calculate_statistics(combined_df,season), value)
 
-
-
-# 2. Funkcja do rysowania wykresow dla statstyk
+# Funkcje do rysowania wykresow dla statstyk
 statystyki_opisowe=calculate_statistics(combined_df,range_of_years)
 
 create_plot <- function(statistics_df, stat_col, stat_name) {
@@ -34,15 +29,8 @@ create_plot <- function(statistics_df, stat_col, stat_name) {
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 }
 
-# Przykładowe wywołania funkcji dla różnych statystyk
-create_plot(statystyki_opisowe, "mean_value", "Średnie")
-create_plot(statystyki_opisowe, "median_value", "Median")
-create_plot(statystyki_opisowe, "sd_value", "Odchylenie standardowe")
 
-
-
-
-# 3. Funkcja do tworzenia wykresów punktowych z linią trendu
+# Funkcja do tworzenia wykresów punktowych z linią trendu
 draw_trend_line <- function(data, zmienna_x, zmienna_y) {
   cleaned_data <- data %>%
     na.omit() %>%
@@ -56,6 +44,3 @@ draw_trend_line <- function(data, zmienna_x, zmienna_y) {
          y = zmienna_y) +
     theme_minimal()
 }
-
-# Przykład użycia funkcji
-draw_trend_line(combined_df, "year", "value")
