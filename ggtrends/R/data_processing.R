@@ -37,7 +37,7 @@ add_season_column <- function(data) {
 
 process_df <- function(data_list) {
   processed_df <- lapply(data_list, function(data) {
-    rodzaj_value <- gsub(":.*", "", data[1, 2])
+    rodzaj_value <- gsub(":.*", "", data[2, 2])
     data$type <- rodzaj_value
     data <- data[-c(1:2), ]
     data <- split_date(data)
