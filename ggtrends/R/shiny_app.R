@@ -85,7 +85,7 @@ server <- function(input, output, session) {
 
   output$trendPlot <- renderPlot({
     p <- draw_trend_line(combined_df, input$zmienna_x, input$zmienna_y)
-    tau_value <- oblicz_tau_kendalla(combined_df, input$zmienna_x, input$zmienna_y)
+    tau_value <- count_tau_kendall(combined_df, input$zmienna_x, input$zmienna_y)
     tau_text <- paste("Współczynnik korelacji Tau Kendalla:", tau_value)
     output$tauResult <- renderText({
       tau_text
@@ -95,3 +95,4 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
+
