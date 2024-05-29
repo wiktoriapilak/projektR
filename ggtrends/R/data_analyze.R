@@ -14,7 +14,7 @@ calculate_statistics <- function(df, parameter) {
 }
 
 # Funkcja do obliczania współczynnika Tau Kendalla dla dowolnych dwóch zmiennych
-oblicz_tau_kendalla <- function(data, zmienna1, zmienna2) {
+count_tau_kendall <- function(data, zmienna1, zmienna2) {
   cleaned_data <- data %>%
     select(all_of(c(zmienna1, zmienna2))) %>%
     na.omit()
