@@ -172,3 +172,25 @@ combined_df = combined_df[-c(631,1260,1470),]
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+
+#FUNKCJA DO FILTROWANIA
+library(dplyr)
+library(tidyr)
+
+# Zakładamy, że combined_df został wcześniej utworzony zgodnie z poprzednimi instrukcjami
+# combined_df <- your_data_frame
+
+filter_and_group <- function(data, start_year, end_year, type = NULL) {
+  # Filtrowanie danych na podstawie zakresu lat
+  filtered_df <- data %>%
+    filter(rok >= start_year & rok <= end_year)
+  
+  # Opcjonalne filtrowanie na podstawie rodzaju, jeśli został podany
+  if (!is.null(type)) {
+    filtered_df <- filtered_df %>%
+      filter(rodzaj == type)
+  }
+
+  Przykład użycia pokazuje, jak można zastosować tę funkcję do ramki danych combined_df, 
+  aby przefiltrować dane dla lat od 2010 do 2015 i rodzaju baggy-jeans,
+  a następnie grupować i obliczać średnią wartość dla każdej grupy.
