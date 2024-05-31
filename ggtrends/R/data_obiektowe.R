@@ -1,7 +1,4 @@
-library(data.table)
-library(tidyverse)
-############ PRZYKŁADOWA KLASA, MOŻEMY JĄ TROCHĘ OGRANICZYĆ ################
-# Definiowanie klasy FashionTrend
+
 library(methods)
 library(dplyr)
 library(ggplot2)
