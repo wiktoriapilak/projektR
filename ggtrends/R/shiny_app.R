@@ -8,6 +8,42 @@ processed_data <- process_df(all_data$data_list)
 combined_df <- combine_data_frames(processed_data)
 
 ui <- fluidPage(
+  tags$head(
+    tags$style(HTML("
+      body {
+        background-color: #E6E6FA; /* Lavender color for background */
+      }
+      .panel {
+        background-color: #F5F5F5; /* Light grey for panel backgrounds */
+        border-color: #D3D3D3; /* Light grey for panel borders */
+      }
+      .panel-heading {
+        background-color: #D8BFD8; /* Thistle color for panel heading */
+        border-color: #D3D3D3; /* Light grey for panel borders */
+      }
+      .checkbox {
+        color: #4B0082; /* Indigo color for checkbox text */
+      }
+      .btn {
+        background-color: #DDA0DD; /* Plum color for buttons */
+        color: #4B0082; /* Indigo color for button text */
+        border-color: #D3D3D3; /* Light grey for button borders */
+      }
+      .btn:hover {
+        background-color: #BA55D3; /* Medium orchid for button hover */
+      }
+      .form-control, .well {
+        background-color: #FFFFFF; /* White background for inputs and well panels */
+      }
+      .navbar-default {
+        background-color: #E6E6FA; /* Lavender color for navbar */
+        border-color: #D3D3D3; /* Light grey for navbar borders */
+      }
+      .navbar-default .navbar-brand, .navbar-default .navbar-text {
+        color: #4B0082; /* Indigo color for navbar text */
+      }
+    "))
+  ),
   titlePanel("Analiza google trends"),
   sidebarLayout(
     sidebarPanel(
