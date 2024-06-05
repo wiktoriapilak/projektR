@@ -1,21 +1,34 @@
-library(dplyr)
-library(tools)
 
-#Wczytanie wszystkich plików
+#' Load all CSV files from the specified folder
+#'
+#' @param folder_path The path to the folder containing CSV files.
+#' @return A list containing two lists: `data_list` with loaded data and `files` with filenames.
+#' @importFrom utils list.files
+#' @export
 read_all_files <- function(folder_path) {
   files <- list.files(path = folder_path, pattern = "\\.csv$", full.names = TRUE)
   data_list <- lapply(files, read.csv, header = FALSE)
   return(list(data_list = data_list, files = files))
 }
 
-#Podzielenie daty na miesiąc i rok
+
+#' Split date into month and year
+#'
+#' @param data A data frame containing a date column.
+#' @return The modified data frame with `year` and `month` columns added.
+#' @export
 split_date <- function(data) {
   data$year <- as.integer(substr(data$V1, 1, 4))
   data$month <- as.integer(substr(data$V1, 6, 7))
   return(data)
 }
 
-#dodanie kolumny range_of_years
+
+#' Add a column for year ranges
+#'
+#' @param data A data frame containing a `year` column.
+#' @return The modified data frame with `range_of_years` column added.
+#' @export
 add_year_range_column <- function(data) {
   data$range_of_years <- cut(
     data$year,
@@ -26,7 +39,11 @@ add_year_range_column <- function(data) {
   return(data)
 }
 
-#dodanie kolumny z porą roku
+#' Add a column for the season
+#'
+#' @param data A data frame containing a `month` column.
+#' @return The modified data frame with `season` column added.
+#' @export
 add_season_column <- function(data) {
   data$season <- cut(
     data$month,
@@ -38,7 +55,11 @@ add_season_column <- function(data) {
   return(data)
 }
 
-#przetworzenie list ramek danych
+#' Process a list of data frames
+#'
+#' @param data_list A list of data frames.
+#' @return A list of processed data frames.
+#' @export
 process_df <- function(data_list) {
   processed_df <- lapply(data_list, function(data) {
     rodzaj_value <- gsub(":.*", "", data[2, 2])
@@ -56,7 +77,12 @@ process_df <- function(data_list) {
   return(processed_df)
 }
 
-#polaczenie w jedna ramke danych
+#' Combine a list of data frames into one
+#'
+#' @param processed_df A list of processed data frames.
+#' @return A combined data frame.
+#' @importFrom dplyr bind_rows
+#' @export
 combine_data_frames <- function(processed_df) {
   combined_df <- bind_rows(processed_df)
   return(combined_df)
