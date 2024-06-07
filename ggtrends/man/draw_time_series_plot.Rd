@@ -7,11 +7,17 @@
 draw_time_series_plot(data)
 }
 \arguments{
-\item{data}{A data frame containing the data.}
+\item{data}{A data frame containing `year`, `value`, and `type` columns.}
 }
 \value{
 A ggplot object showing the time series plot.
 }
 \description{
-Draw a time series plot of values for different types
+This function creates a time series plot showing the values over the years for different types.
+}
+\examples{
+\dontrun{
+data <- data.frame(year = rep(2001:2005, each = 2), value = rnorm(10), type = rep(c("A", "B"), 5))
+draw_time_series_plot(data)
+}
 }

@@ -7,11 +7,18 @@
 draw_season_plot(data)
 }
 \arguments{
-\item{data}{A data frame containing the data.}
+\item{data}{A data frame containing `season`, `mean_value`, and `type` columns.}
 }
 \value{
 A ggplot object showing the seasonal plot.
 }
 \description{
-Draw a seasonal plot
+This function creates a bar plot showing the average values for different seasons and types.
+}
+\examples{
+\dontrun{
+data <- data.frame(season = rep(c("Winter", "Spring", "Summer", "Autumn"), each = 2),
+                   mean_value = runif(8), type = rep(c("A", "B"), 4))
+draw_season_plot(data)
+}
 }

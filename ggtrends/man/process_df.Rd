@@ -10,8 +10,8 @@ process_df(data_list)
 \item{data_list}{A list of data frames.}
 }
 \value{
-A list of processed data frames.
+A combined data frame.
 }
 \description{
-Process a list of data frames
+This function processes a list of data frames by extracting type information, splitting date into year and month, adding year range and season columns, and converting values to numeric.
 }

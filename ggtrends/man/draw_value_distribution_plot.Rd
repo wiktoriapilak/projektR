@@ -7,11 +7,19 @@
 draw_value_distribution_plot(data)
 }
 \arguments{
-\item{data}{A data frame containing the data.}
+\item{data}{A data frame containing `range_of_years`, `value`, and `type` columns.}
 }
 \value{
 A ggplot object showing the value distribution plot.
 }
 \description{
-Draw a distribution plot of values for different types across time ranges
+This function creates a box plot showing the distribution of values for different types across different time ranges.
+}
+\examples{
+\dontrun{
+data <- data.frame(range_of_years = rep(c("2004-2006", "2007-2009"), each = 5),
+                   value = rnorm(10), type = rep(c("A", "B"), 5))
+draw_value_distribution_plot(data)
+}
+
 }

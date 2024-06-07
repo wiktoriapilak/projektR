@@ -13,5 +13,5 @@ add_year_range_column(data)
 The modified data frame with `range_of_years` column added.
 }
 \description{
-Add a column for year ranges
+This function adds a column to a data frame that categorizes years into specified ranges.
 }

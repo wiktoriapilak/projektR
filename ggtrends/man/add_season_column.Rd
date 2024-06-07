@@ -13,5 +13,5 @@ add_season_column(data)
 The modified data frame with `season` column added.
 }
 \description{
-Add a column for the season
+This function adds a column to a data frame that categorizes months into seasons.
 }

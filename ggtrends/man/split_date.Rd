@@ -7,11 +7,11 @@
 split_date(data)
 }
 \arguments{
-\item{data}{A data frame containing a date column.}
+\item{data}{A data frame containing a date column (assumed to be the first column).}
 }
 \value{
 The modified data frame with `year` and `month` columns added.
 }
 \description{
-Split date into month and year
+This function splits a date column into separate year and month columns.
 }

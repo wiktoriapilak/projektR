@@ -13,5 +13,11 @@ calculate_mean_results(data)
 A data frame with mean results.
 }
 \description{
-Calculate mean results for the data
+This function calculates the mean values of the data grouped by `range_of_years` and `type`.
+}
+\examples{
+\dontrun{
+data <- data.frame(range_of_years = rep(c("2004-2006", "2007-2009"), each = 5), type = rep(c("A", "B"), each = 5), value = rnorm(10))
+calculate_mean_results(data)
+}
 }

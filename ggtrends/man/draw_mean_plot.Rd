@@ -15,5 +15,15 @@ draw_mean_plot(data, mean_results)
 A ggplot object showing the mean values plot.
 }
 \description{
-Draw a plot of average values within types for different time ranges
+This function creates a line plot showing the average values within types for different time ranges.
+}
+\examples{
+\dontrun{
+data <- data.frame(range_of_years = rep(c("2004-2006", "2007-2009"), each = 5),
+                   value = rnorm(10), type = rep(c("A", "B"), 5))
+mean_results <- data.frame(range_of_years = rep(c("2004-2006", "2007-2009"), each = 2),
+                           mean_value = runif(4), type = rep(c("A", "B"), 2))
+draw_mean_plot(data, mean_results)
+}
+
 }

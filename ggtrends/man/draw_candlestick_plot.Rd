@@ -7,11 +7,18 @@
 draw_candlestick_plot(data)
 }
 \arguments{
-\item{data}{A data frame containing the data.}
+\item{data}{A data frame containing `range_of_years`, `value`, and `type` columns.}
 }
 \value{
 A ggplot object showing the candlestick plot.
 }
 \description{
-Draw a candlestick plot
+This function creates a candlestick plot showing the value distribution across different time ranges and types.
+}
+\examples{
+\dontrun{
+data <- data.frame(range_of_years = rep(c("2004-2006", "2007-2009"), each = 5),
+                   value = rnorm(10), type = rep(c("A", "B"), 5))
+draw_candlestick_plot(data)
+}
 }

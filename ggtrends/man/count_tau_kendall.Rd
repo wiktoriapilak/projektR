@@ -13,5 +13,11 @@ count_tau_kendall(data)
 The Kendall's Tau coefficient.
 }
 \description{
-Calculate Kendall's Tau coefficient for two variables
+This function calculates Kendall's Tau coefficient for the correlation between `year` and `value` columns.
+}
+\examples{
+\dontrun{
+data <- data.frame(year = rep(2001:2005, each = 2), value = rnorm(10))
+count_tau_kendall(data)
+}
 }

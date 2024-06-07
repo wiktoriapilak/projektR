@@ -7,11 +7,11 @@
 read_all_files(folder_path)
 }
 \arguments{
-\item{folder_path}{The path to the folder containing CSV files.}
+\item{folder_path}{Character. The path to the folder containing CSV files.}
 }
 \value{
-A list containing two lists: `data_list` with loaded data and `files` with filenames.
+A list containing two elements: `data_list` (a list of data frames loaded from CSV files) and `files` (a character vector of filenames).
 }
 \description{
-Load all CSV files from the specified folder
+This function loads all CSV files from the specified folder into a list of data frames.
 }

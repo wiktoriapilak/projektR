@@ -7,11 +7,17 @@
 draw_scatter_with_trend_plot(data)
 }
 \arguments{
-\item{data}{A data frame containing the data.}
+\item{data}{A data frame containing `year`, `value`, and `type` columns.}
 }
 \value{
 A ggplot object showing the scatter plot with a trend line.
 }
 \description{
-Draw a scatter plot with a trend line for values
+This function creates a scatter plot with a linear trend line showing the values over the years for different types.
+}
+\examples{
+\dontrun{
+data <- data.frame(year = rep(2001:2005, each = 2), value = rnorm(10), type = rep(c("A", "B"), 5))
+draw_scatter_with_trend_plot(data)
+}
 }
