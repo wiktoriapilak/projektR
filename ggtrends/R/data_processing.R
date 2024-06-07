@@ -1,8 +1,9 @@
-
 #' Load all CSV files from the specified folder
 #'
-#' @param folder_path The path to the folder containing CSV files.
-#' @return A list containing two lists: `data_list` with loaded data and `files` with filenames.
+#' This function loads all CSV files from the specified folder into a list of data frames.
+#'
+#' @param folder_path Character. The path to the folder containing CSV files.
+#' @return A list containing two elements: `data_list` (a list of data frames loaded from CSV files) and `files` (a character vector of filenames).
 #' @importFrom utils list.files
 #' @export
 read_all_files <- function(folder_path) {
@@ -11,10 +12,11 @@ read_all_files <- function(folder_path) {
   return(list(data_list = data_list, files = files))
 }
 
-
 #' Split date into month and year
 #'
-#' @param data A data frame containing a date column.
+#' This function splits a date column into separate year and month columns.
+#'
+#' @param data A data frame containing a date column (assumed to be the first column).
 #' @return The modified data frame with `year` and `month` columns added.
 #' @export
 split_date <- function(data) {
@@ -23,8 +25,9 @@ split_date <- function(data) {
   return(data)
 }
 
-
 #' Add a column for year ranges
+#'
+#' This function adds a column to a data frame that categorizes years into specified ranges.
 #'
 #' @param data A data frame containing a `year` column.
 #' @return The modified data frame with `range_of_years` column added.
@@ -33,13 +36,23 @@ add_year_range_column <- function(data) {
   data$range_of_years <- cut(
     data$year,
     breaks = seq(2003, 2024, by = 3),
-    labels = c("2004-2006", "2007-2009", "2010-2012", "2013-2015", "2016-2018", "2019-2021", "2022-2024"),
+    labels = c(
+      "2004-2006",
+      "2007-2009",
+      "2010-2012",
+      "2013-2015",
+      "2016-2018",
+      "2019-2021",
+      "2022-2024"
+    ),
     right = TRUE
   )
   return(data)
 }
 
 #' Add a column for the season
+#'
+#' This function adds a column to a data frame that categorizes months into seasons.
 #'
 #' @param data A data frame containing a `month` column.
 #' @return The modified data frame with `season` column added.
@@ -57,13 +70,16 @@ add_season_column <- function(data) {
 
 #' Process a list of data frames
 #'
+#' This function processes a list of data frames by extracting type information, splitting date into year and month, adding year range and season columns, and converting values to numeric.
+#'
 #' @param data_list A list of data frames.
-#' @return A list of processed data frames.
+#' @return A combined data frame.
+#' @importFrom dplyr bind_rows
 #' @export
 process_df <- function(data_list) {
   processed_df <- lapply(data_list, function(data) {
-    rodzaj_value <- gsub(":.*", "", data[2, 2])
-    data$type <- rodzaj_value
+    type_value <- gsub(":.*", "", data[2, 2])
+    data$type <- type_value
     data <- data[-c(1:2), ]
     data <- split_date(data)
     data <- add_year_range_column(data)
@@ -71,19 +87,8 @@ process_df <- function(data_list) {
     colnames(data)[1] <- "date"
     colnames(data)[2] <- "value"
     data$value <- as.numeric(data$value)
-    data$type <- rodzaj_value
     return(data)
   })
-  return(processed_df)
-}
-
-#' Combine a list of data frames into one
-#'
-#' @param processed_df A list of processed data frames.
-#' @return A combined data frame.
-#' @importFrom dplyr bind_rows
-#' @export
-combine_data_frames <- function(processed_df) {
   combined_df <- bind_rows(processed_df)
   return(combined_df)
 }
