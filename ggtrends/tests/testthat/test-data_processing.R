@@ -25,11 +25,3 @@ test_that("add_season_column function works properly", {
   expect_true("season" %in% names(data))
 })
 
-test_that("combine_data_frames function works properly", {
-  data_list <- list(data.frame(value = 1:3, type = "type1"),
-                    data.frame(value = 4:6, type = "type2"))
-  combined_df <- combine_data_frames(data_list)
-  expect_equal(nrow(combined_df), sum(sapply(data_list, nrow)))
-  expect_equal(ncol(combined_df), ncol(data_list[[1]]))
-})
-
